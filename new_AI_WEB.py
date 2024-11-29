@@ -3,7 +3,7 @@ import streamlit as st
 import openai
 import random
 import re
-import matplotlib.pyplot as plt  # Change to plt for plotting
+import matplotlib.pyplot as plt  
 
 # Set the OpenAI API key
 openai.api_key = "sk-svcacct-8dcUrtOCCiU3jO3ysuZ29D-DeYPWd3Vk_BKZf4s5Ya-UuWekdRLkG2LzQGCKYwIT3BlbkFJ0gsmApPqJnvNjSnyvcQI7UinZ3vehK1O3RJCCCG3qAjxxlUxbFXiQTG2fZwu_AA"
@@ -47,7 +47,6 @@ def record_stats():
         st.session_state.total_guesses = 0
     st.session_state.games_played += 1
     st.session_state.total_guesses += st.session_state.guesses
-    # Record the number of guesses for the current game
     st.session_state[f'game_{st.session_state.games_played}_guesses'] = st.session_state.guesses
 
 def display_stats():
@@ -60,7 +59,7 @@ def display_stats():
 
     if games_played > 0:
         guess_counts = [] 
-        for i in range(1, games_played + 1):  # Start from 1 to match game numbering
+        for i in range(1, games_played + 1):  
             guess_counts.append(st.session_state.get(f'game_{i}_guesses', 0))
 
         plt.figure(figsize=(10, 5))
@@ -85,7 +84,7 @@ if page == "Play":
     goal_animal = st.session_state.goal
     description_animal = st.session_state.description
     st.write(description_animal)
-    st.write(goal_animal)
+    #st.write(goal_animal)
     
     for msg in st.session_state.history:
         with st.chat_message(msg['role']):
@@ -117,8 +116,8 @@ if page == "Play":
             msg = "Congratulations! Your guess is correct! 🎉"
             st.success(msg)
             st.session_state.history.append({'role': 'assistant', 'content': msg})
-            record_stats()  # Record game stats
-            reset_game()  # Reset for the next game
+            record_stats()  
+            reset_game()  
 
 elif page == "Stats":
     display_stats()
